@@ -16,19 +16,31 @@ public class MoveCharacter : MonoBehaviour {
         if (Input.GetKey(KeyCode.UpArrow))
         {
             print("HI");
-            rigid.AddForce(Vector3.forward * 30f);
+            if(rigid.velocity.z < 8f)
+            {
+                rigid.AddForce(Vector3.forward * 20f);
+            }
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            rigid.AddForce(Vector3.back * 30f);
+            if (rigid.velocity.z > -8f)
+            {
+                rigid.AddForce(Vector3.back * 20f);
+            }
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rigid.AddForce(Vector3.left * 30f);
+            if (rigid.velocity.x > -8f)
+            {
+                rigid.AddForce(Vector3.left * 20f);
+            }
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            rigid.AddForce(Vector3.right * 30f);
+            if (rigid.velocity.x < 8f)
+            {
+                rigid.AddForce(Vector3.right * 20f);
+            }
         }
         this.transform.position = rigid.transform.position;
 	}
