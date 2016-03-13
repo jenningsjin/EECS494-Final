@@ -4,6 +4,7 @@ using System.Collections;
 public class MoveKnight : MonoBehaviour {
     Rigidbody rigid;
     public bool enemy = false;
+    public GameObject explosion;
     // Use this for initialization
     void Start () {
         rigid = GetComponentInChildren<Rigidbody>();
@@ -27,6 +28,8 @@ public class MoveKnight : MonoBehaviour {
         {
             print(collision.gameObject.name);
             rigid.constraints = RigidbodyConstraints.None;
+            explosion.transform.position = collision.transform.position;
+            Instantiate<GameObject>(explosion);
         }
     }
 }
