@@ -4,7 +4,8 @@ using System.Collections;
 public class MoveCharacter : MonoBehaviour {
 
     Rigidbody rigid;
-
+    float rotateSpeed = 3f;
+    float speed = 3f;
 	// Use this for initialization
 	void Start () {
         rigid = GetComponentInChildren<Rigidbody>();
@@ -32,6 +33,7 @@ public class MoveCharacter : MonoBehaviour {
         {
             if (rigid.velocity.x > -8f)
             {
+                
                 rigid.AddForce(Vector3.left * 20f);
             }
         }
@@ -43,5 +45,5 @@ public class MoveCharacter : MonoBehaviour {
             }
         }
         this.transform.position = rigid.transform.position;
-	}
+    }
 }
