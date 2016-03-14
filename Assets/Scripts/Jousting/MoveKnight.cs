@@ -5,6 +5,7 @@ public class MoveKnight : MonoBehaviour {
     Rigidbody rigid;
     public bool enemy = false;
     public GameObject explosion;
+    public bool start = false;
     // Use this for initialization
     void Start () {
         rigid = GetComponentInChildren<Rigidbody>();
@@ -12,13 +13,20 @@ public class MoveKnight : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (enemy)
+        if (Input.GetKey(KeyCode.Space))
         {
-            rigid.AddForce(Vector3.back * 10f);
+            start = true;
         }
-        else
+        if (start)
         {
-            rigid.AddForce(Vector3.forward * 10f);
+            if (enemy)
+            {
+                rigid.AddForce(Vector3.back * 10f);
+            }
+            else
+            {
+                rigid.AddForce(Vector3.forward * 10f);
+            }
         }
     }
 
