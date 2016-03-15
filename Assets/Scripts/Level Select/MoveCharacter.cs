@@ -4,19 +4,16 @@ using System.Collections;
 public class MoveCharacter : MonoBehaviour {
 
     Rigidbody rigid;
-    float rotateSpeed = 3f;
-    float speed = 3f;
 	// Use this for initialization
 	void Start () {
         rigid = GetComponentInChildren<Rigidbody>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        Vector3 vel = new Vector3(0f, 0f, 0f);
+	void FixedUpdate () {
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            print("HI");
+			print ("Up");
             if(rigid.velocity.z < 8f)
             {
                 rigid.AddForce(Vector3.forward * 20f);
