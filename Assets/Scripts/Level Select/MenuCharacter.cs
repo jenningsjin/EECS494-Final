@@ -15,9 +15,10 @@ public class MenuCharacter : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.name == "Main Camera")
+        print("collided");
+        if(collision.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene("Date Menu");
+            SceneManager.LoadScene("DialogueScene");
         }
     }
 
