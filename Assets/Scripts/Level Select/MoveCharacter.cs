@@ -9,11 +9,10 @@ public class MoveCharacter : MonoBehaviour {
         rigid = GetComponentInChildren<Rigidbody>();
 	}
 	
-	// Update is called once per frame
+	// FixedUpdate must be used with rigidbody.
 	void FixedUpdate () {
         if (Input.GetKey(KeyCode.UpArrow))
         {
-			print ("Up");
             if(rigid.velocity.z < 8f)
             {
                 rigid.AddForce(Vector3.forward * 20f);
