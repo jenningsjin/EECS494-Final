@@ -19,4 +19,10 @@ public class ChangeScene : MonoBehaviour {
         print("HI");
         SceneManager.LoadScene("Joust");
     }
+
+	void returnToLevelSelect()
+	{
+		print ("Return to level select");
+		SceneManager.LoadScene ("LevelSelectScene");
+	}
 }
