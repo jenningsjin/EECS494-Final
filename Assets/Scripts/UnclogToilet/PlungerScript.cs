@@ -13,6 +13,7 @@ public class PlungerScript : MonoBehaviour {
 	public float timer; // count down timer
 	public Text timerGUI;
 	public bool gameOver;
+	public GameObject explosion;
 
 	void Start () {
 		startpos = transform.position;
@@ -73,6 +74,8 @@ public class PlungerScript : MonoBehaviour {
 			if (transform.position == endpos) {
 				//Debug.Log ("Moving plunger up --> state 2");
 				lerpTimer = 0.0f;
+				explosion.transform.position = transform.position;
+				Instantiate<GameObject>(explosion);
 				++state;
 			}
 			break;
