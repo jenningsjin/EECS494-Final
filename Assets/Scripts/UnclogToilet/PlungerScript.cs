@@ -31,6 +31,8 @@ public class PlungerScript : MonoBehaviour {
 		timerGUI = tmp2.GetComponent<Text> ();
 		gameOver = false;
 		charge = 0;
+		Behaviour b = (Behaviour) this.gameObject.GetComponent("Halo");
+		b.enabled = false;
 	}
 		
 	void Update () {
@@ -68,6 +70,10 @@ public class PlungerScript : MonoBehaviour {
 			if (Input.GetMouseButton (0)) {
 				Debug.Log (charge);
 				charge += Time.deltaTime;
+				if (charge >= 3) {
+					Behaviour b = (Behaviour) this.gameObject.GetComponent ("Halo"); // Downcast
+					b.enabled = true;
+				}
 			}
 			if (Input.GetMouseButtonUp (0)) {
 				//Debug.Log ("Moving plunger down --> state 1");
@@ -81,6 +87,8 @@ public class PlungerScript : MonoBehaviour {
 				//Debug.Log ("Moving plunger up --> state 2");
 				lerpTimer = 0.0f;
 				if (charge >= 3) {
+					Behaviour b = (Behaviour)this.gameObject.GetComponent ("Halo");
+					b.enabled = false;
 					explosion.transform.position = transform.position;
 					Instantiate<GameObject> (explosion);
 				}
