@@ -6,6 +6,7 @@ public class ToiletScript : MonoBehaviour {
 	public GameObject toiletCamera;
 	public GameObject plunger;
 	public GameObject scorePanel;
+	public GameObject timerPanel;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +17,8 @@ public class ToiletScript : MonoBehaviour {
 		plunger.SetActive (false);
 		scorePanel = GameObject.Find ("ScorePanel");
 		scorePanel.SetActive (false);
+		timerPanel = GameObject.Find ("TimerPanel");
+		timerPanel.SetActive (false);
 
 	}
 	
@@ -35,6 +38,7 @@ public class ToiletScript : MonoBehaviour {
 			c.gameObject.SetActive (false);
 			plunger.SetActive (true);
 			scorePanel.SetActive (true);
+			timerPanel.SetActive (true);
 		}
 	}
 }
