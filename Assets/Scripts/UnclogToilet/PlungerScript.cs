@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlungerScript : MonoBehaviour {
 	// Use this for initialization
@@ -11,6 +12,7 @@ public class PlungerScript : MonoBehaviour {
 	public Text scoreGUI;
 	public float timer; // count down timer
 	public Text timerGUI;
+	public bool gameOver;
 
 	void Start () {
 		startpos = transform.position;
@@ -25,16 +27,31 @@ public class PlungerScript : MonoBehaviour {
 		}
 		scoreGUI = tmp1.GetComponent<Text> ();
 		timerGUI = tmp2.GetComponent<Text> ();
+		gameOver = false;
 	}
 		
 	void Update () {
-		UpdateTime ();
-		MovePlunger ();
+		if (gameOver) {
+			PauseForEffect ();
+		} else {
+			UpdateTimer ();
+			MovePlunger ();
+		}
 	}
 
-	void UpdateTime () {
+	void PauseForEffect() {
+		// TODO: integrate with fungus. This is just a placeholder.
+		if (timer < 0) {
+			SceneManager.LoadScene ("LevelSelectScene");
+		}
+		timer -= Time.deltaTime;
+	}
+
+	void UpdateTimer () {
 		if (timer < 0) {
 			timerGUI.text = "Time's Up!!!";
+			gameOver = true;
+			timer = 2f;
 		} else {
 			timerGUI.text = ((int)timer).ToString();
 		}
