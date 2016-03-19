@@ -14,13 +14,14 @@ public class PlungerScript : MonoBehaviour {
 	public Text timerGUI;
 	public bool gameOver;
 	public GameObject explosion;
+	public float charge;
 
 	void Start () {
 		startpos = transform.position;
 		state = 0;
 		lerpTimer = 0.0f;
 		score = 0;
-		timer = 11;
+		timer = 31;
 		GameObject tmp1 = GameObject.Find ("ScoreText");
 		GameObject tmp2 = GameObject.Find ("TimerText");
 		if (!tmp1 || !tmp2) {
@@ -29,6 +30,7 @@ public class PlungerScript : MonoBehaviour {
 		scoreGUI = tmp1.GetComponent<Text> ();
 		timerGUI = tmp2.GetComponent<Text> ();
 		gameOver = false;
+		charge = 0;
 	}
 		
 	void Update () {
@@ -63,7 +65,11 @@ public class PlungerScript : MonoBehaviour {
 		Vector3 endpos = new Vector3 (transform.position.x, transform.position.y - 0.1f, transform.position.z);
 		switch (state) {
 		case (0):
-			if (Input.GetMouseButtonDown (0)) {
+			if (Input.GetMouseButton (0)) {
+				Debug.Log (charge);
+				charge += Time.deltaTime;
+			}
+			if (Input.GetMouseButtonUp (0)) {
 				//Debug.Log ("Moving plunger down --> state 1");
 				++state;
 			}
@@ -74,8 +80,10 @@ public class PlungerScript : MonoBehaviour {
 			if (transform.position == endpos) {
 				//Debug.Log ("Moving plunger up --> state 2");
 				lerpTimer = 0.0f;
-				explosion.transform.position = transform.position;
-				Instantiate<GameObject>(explosion);
+				if (charge >= 3) {
+					explosion.transform.position = transform.position;
+					Instantiate<GameObject> (explosion);
+				}
 				++state;
 			}
 			break;
@@ -85,10 +93,16 @@ public class PlungerScript : MonoBehaviour {
 			if (transform.position == startpos) {
 				//Debug.Log ("Returning to start --> state 0");
 				lerpTimer = 0.0f;
-				++score;
+				if (charge >= 3) {
+					score += 10;
+				} else {
+					++score;
+				}
 				scoreGUI.text = "Score: " + score.ToString ();
 				Debug.Log ("Your score is: " + score);
 				state = 0;
+				// You need to recharge after releasing the plunger
+				charge = 0;
 			}
 			break;
 		default:
