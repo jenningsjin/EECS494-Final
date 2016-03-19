@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlungerScript : MonoBehaviour {
@@ -7,11 +8,18 @@ public class PlungerScript : MonoBehaviour {
 	private int state;
 	private float timer;
 	public int score;
+	public Text scoreGUI;
+
 	void Start () {
 		startpos = transform.position;
 		state = 0;
 		timer = 0.0f;
 		score = 0;
+		GameObject tmp = GameObject.Find ("ScoreText");
+		if (!tmp) {
+			Debug.Log("MISSING SCORE TEXT!");
+		}
+		scoreGUI = tmp.GetComponent<Text> ();
 	}
 		
 	void Update () {
@@ -43,6 +51,7 @@ public class PlungerScript : MonoBehaviour {
 				//Debug.Log ("Returning to start --> state 0");
 				timer = 0.0f;
 				++score;
+				scoreGUI.text = "Score: " + score.ToString ();
 				Debug.Log ("Your score is: " + score);
 				state = 0;
 			}

@@ -5,6 +5,7 @@ public class ToiletScript : MonoBehaviour {
 	public GameObject mainCamera;
 	public GameObject toiletCamera;
 	public GameObject plunger;
+	public GameObject scorePanel;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +14,9 @@ public class ToiletScript : MonoBehaviour {
 		toiletCamera.GetComponent<Camera> ().enabled = false;
 		toiletCamera.GetComponent<AudioListener> ().enabled = false;
 		plunger.SetActive (false);
+		scorePanel = GameObject.Find ("ScorePanel");
+		scorePanel.SetActive (false);
+
 	}
 	
 	// Update is called once per frame
@@ -30,6 +34,7 @@ public class ToiletScript : MonoBehaviour {
 			toiletCamera.GetComponent<AudioListener> ().enabled = true;
 			c.gameObject.SetActive (false);
 			plunger.SetActive (true);
+			scorePanel.SetActive (true);
 		}
 	}
 }
