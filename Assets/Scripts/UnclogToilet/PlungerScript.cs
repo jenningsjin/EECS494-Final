@@ -16,6 +16,10 @@ public class PlungerScript : MonoBehaviour {
 	public GameObject explosion;
 	public float charge;
 	public bool messageSent;
+	public Fungus.Flowchart gameOverFC;
+	public AudioSource asource;
+	public AudioClip plungersound;
+	public AudioClip plungercharged;
 
 	void Start () {
 		startpos = transform.position;
@@ -35,6 +39,7 @@ public class PlungerScript : MonoBehaviour {
 		Behaviour b = (Behaviour) this.gameObject.GetComponent("Halo");
 		b.enabled = false;
 		messageSent = false;
+		asource = this.gameObject.GetComponent<AudioSource> ();
 	}
 		
 	void Update () {
@@ -61,6 +66,12 @@ public class PlungerScript : MonoBehaviour {
 			timerGUI.text = "Time's Up!!!";
 			gameOver = true;
 			timer = 2f;
+			if (score >= 50) { // TODO: Testing
+				// Update the high score variable in Fungus
+				gameOverFC.SetBooleanVariable ("Got100Pts", true);
+			} else {
+				gameOverFC.SetBooleanVariable ("Got100Pts", false);
+			}
 		} else {
 			timerGUI.text = ((int)timer).ToString();
 		}
@@ -71,17 +82,24 @@ public class PlungerScript : MonoBehaviour {
 		Vector3 endpos = new Vector3 (transform.position.x, transform.position.y - 0.1f, transform.position.z);
 		switch (state) {
 		case (0):
-			if (Input.GetMouseButton (0)) {
+			if (Input.GetKey(KeyCode.Space)) {
 				Debug.Log (charge);
 				charge += Time.deltaTime;
 				if (charge >= 3) {
 					Behaviour b = (Behaviour) this.gameObject.GetComponent ("Halo"); // Downcast
+					if (!asource.isPlaying) {
+						asource.PlayOneShot (plungercharged);
+					}
 					b.enabled = true;
 				}
 			}
-			if (Input.GetMouseButtonUp (0)) {
+			if (Input.GetKeyUp(KeyCode.Space)) {
 				//Debug.Log ("Moving plunger down --> state 1");
 				++state;
+				if (charge >= 3 && asource.isPlaying) {
+					// If the player was charging, stop the charge sound
+					asource.Stop ();
+				}
 			}
 			break;
 		case (1):
@@ -95,6 +113,8 @@ public class PlungerScript : MonoBehaviour {
 					b.enabled = false;
 					explosion.transform.position = transform.position;
 					Instantiate<GameObject> (explosion);
+				} else {
+					asource.PlayOneShot (plungersound);
 				}
 				++state;
 			}
