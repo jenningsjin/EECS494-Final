@@ -7,6 +7,10 @@ public class ToiletScript : MonoBehaviour {
 	public GameObject plunger;
 	public GameObject scorePanel;
 	public GameObject timerPanel;
+	public GameObject player;
+
+	//public delegate void MeetPlumber();
+	//public static event MeetPlumber m;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +25,7 @@ public class ToiletScript : MonoBehaviour {
 		scorePanel.SetActive (false);
 		timerPanel = GameObject.Find ("TimerPanel");
 		timerPanel.SetActive (false);
+		player = GameObject.Find ("Player");
 
 	}
 	
@@ -31,18 +36,46 @@ public class ToiletScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider c)
 	{
-		if (c.gameObject.CompareTag("Player")) {
-			Debug.Log("This is a player");
-			mainCamera.GetComponent<Camera> ().enabled = false;
-			mainCamera.GetComponent<AudioListener> ().enabled = false;
-			mainCamera.GetComponent<AudioSource> ().enabled = false;
-			toiletCamera.GetComponent<Camera> ().enabled = true;
-			toiletCamera.GetComponent<AudioListener> ().enabled = true;
-			toiletCamera.GetComponent<AudioSource> ().enabled = true;
-			c.gameObject.SetActive (false);
-			plunger.SetActive (true);
-			scorePanel.SetActive (true);
-			timerPanel.SetActive (true);
+		if (c.gameObject.CompareTag ("Player")) {
+			Debug.Log ("This is a player");
+			// Start the dialogue and freeze player motion
+			Fungus.Flowchart.BroadcastFungusMessage("MeetPlumber");
+			c.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
 		}
+	}
+
+	public void playGame() {
+		Debug.Log ("Starting the game...");
+		mainCamera.GetComponent<Camera> ().enabled = false;
+		mainCamera.GetComponent<AudioListener> ().enabled = false;
+		mainCamera.GetComponent<AudioSource> ().enabled = false;
+		toiletCamera.GetComponent<Camera> ().enabled = true;
+		toiletCamera.GetComponent<AudioListener> ().enabled = true;
+		toiletCamera.GetComponent<AudioSource> ().enabled = true;
+		player.SetActive (false);
+		plunger.SetActive (true);
+		scorePanel.SetActive (true);
+		timerPanel.SetActive (true);
+	}
+
+	public void notPlaying() {
+		Debug.Log ("Not playing...");
+		GameObject go = GameObject.Find ("Player");
+		go.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotation;
+	}
+
+	public void restoreState() {
+		mainCamera.GetComponent<Camera> ().enabled = true;
+		mainCamera.GetComponent<AudioListener> ().enabled = true;
+		mainCamera.GetComponent<AudioSource> ().enabled = true;
+		toiletCamera.GetComponent<Camera> ().enabled = false;
+		toiletCamera.GetComponent<AudioListener> ().enabled = false;
+		toiletCamera.GetComponent<AudioSource> ().enabled = false;
+		plunger.SetActive (false);
+		scorePanel = GameObject.Find ("ScorePanel");
+		scorePanel.SetActive (false);
+		timerPanel = GameObject.Find ("TimerPanel");
+		timerPanel.SetActive (false);
+		player.SetActive (true);
 	}
 }
