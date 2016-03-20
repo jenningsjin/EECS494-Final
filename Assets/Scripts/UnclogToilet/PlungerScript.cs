@@ -18,7 +18,8 @@ public class PlungerScript : MonoBehaviour {
 	public bool messageSent;
 	public Fungus.Flowchart gameOverFC;
 	public AudioSource asource;
-	public AudioClip aclip;
+	public AudioClip plungersound;
+	public AudioClip plungercharged;
 
 	void Start () {
 		startpos = transform.position;
@@ -86,12 +87,19 @@ public class PlungerScript : MonoBehaviour {
 				charge += Time.deltaTime;
 				if (charge >= 3) {
 					Behaviour b = (Behaviour) this.gameObject.GetComponent ("Halo"); // Downcast
+					if (!asource.isPlaying) {
+						asource.PlayOneShot (plungercharged);
+					}
 					b.enabled = true;
 				}
 			}
 			if (Input.GetKeyUp(KeyCode.Space)) {
 				//Debug.Log ("Moving plunger down --> state 1");
 				++state;
+				if (charge >= 3 && asource.isPlaying) {
+					// If the player was charging, stop the charge sound
+					asource.Stop ();
+				}
 			}
 			break;
 		case (1):
@@ -106,7 +114,7 @@ public class PlungerScript : MonoBehaviour {
 					explosion.transform.position = transform.position;
 					Instantiate<GameObject> (explosion);
 				} else {
-					asource.PlayOneShot (aclip);
+					asource.PlayOneShot (plungersound);
 				}
 				++state;
 			}
