@@ -18,7 +18,7 @@ public class MenuCharacter : MonoBehaviour {
         print("collided");
         if(collision.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene("DialogueScene");
+            SceneManager.LoadScene("DialogueSceneTemp");
         }
     }
 

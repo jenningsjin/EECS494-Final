@@ -15,7 +15,7 @@ public class EnemyCollision : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.name == "Character" && Slap.slapping != 0)
+        if(collision.gameObject.name == "Character" && Slap.slapping == 1)
         {
             print(collision.gameObject.name);
             explosion.transform.position = collision.transform.position;
