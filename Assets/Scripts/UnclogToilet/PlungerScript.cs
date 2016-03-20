@@ -71,7 +71,7 @@ public class PlungerScript : MonoBehaviour {
 		Vector3 endpos = new Vector3 (transform.position.x, transform.position.y - 0.1f, transform.position.z);
 		switch (state) {
 		case (0):
-			if (Input.GetMouseButton (0)) {
+			if (Input.GetKey(KeyCode.Space)) {
 				Debug.Log (charge);
 				charge += Time.deltaTime;
 				if (charge >= 3) {
@@ -79,7 +79,7 @@ public class PlungerScript : MonoBehaviour {
 					b.enabled = true;
 				}
 			}
-			if (Input.GetMouseButtonUp (0)) {
+			if (Input.GetKeyUp(KeyCode.Space)) {
 				//Debug.Log ("Moving plunger down --> state 1");
 				++state;
 			}
