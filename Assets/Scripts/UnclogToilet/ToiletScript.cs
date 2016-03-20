@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ToiletScript : MonoBehaviour {
 	public GameObject mainCamera;
@@ -44,7 +45,7 @@ public class ToiletScript : MonoBehaviour {
 		}
 	}
 
-	public void playGame() {
+	public void displayInstructions() {
 		Debug.Log ("Starting the game...");
 		mainCamera.GetComponent<Camera> ().enabled = false;
 		mainCamera.GetComponent<AudioListener> ().enabled = false;
@@ -53,9 +54,12 @@ public class ToiletScript : MonoBehaviour {
 		toiletCamera.GetComponent<AudioListener> ().enabled = true;
 		toiletCamera.GetComponent<AudioSource> ().enabled = true;
 		player.SetActive (false);
-		plunger.SetActive (true);
 		scorePanel.SetActive (true);
 		timerPanel.SetActive (true);
+	}
+
+	public void playGame() {
+		plunger.SetActive (true);
 	}
 
 	public void notPlaying() {
@@ -77,5 +81,9 @@ public class ToiletScript : MonoBehaviour {
 		timerPanel = GameObject.Find ("TimerPanel");
 		timerPanel.SetActive (false);
 		player.SetActive (true);
+	}
+
+	public void loadLevelSelect() {
+		SceneManager.LoadScene ("LevelSelectScene");
 	}
 }

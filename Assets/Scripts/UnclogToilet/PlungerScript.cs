@@ -16,6 +16,7 @@ public class PlungerScript : MonoBehaviour {
 	public GameObject explosion;
 	public float charge;
 	public bool messageSent;
+	public Fungus.Flowchart gameOverFC;
 
 	void Start () {
 		startpos = transform.position;
@@ -61,6 +62,12 @@ public class PlungerScript : MonoBehaviour {
 			timerGUI.text = "Time's Up!!!";
 			gameOver = true;
 			timer = 2f;
+			if (score >= 50) { // TODO: Testing
+				// Update the high score variable in Fungus
+				gameOverFC.SetBooleanVariable ("Got100Pts", true);
+			} else {
+				gameOverFC.SetBooleanVariable ("Got100Pts", false);
+			}
 		} else {
 			timerGUI.text = ((int)timer).ToString();
 		}
