@@ -40,7 +40,7 @@ public class CharacterMotion : MonoBehaviour {
         print(collision.gameObject.name);
         if(collision.gameObject.name == "End")
         {
-            //End of Game
+            //Won Game
         }
     }
 

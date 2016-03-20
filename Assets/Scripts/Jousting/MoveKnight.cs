@@ -6,6 +6,9 @@ public class MoveKnight : MonoBehaviour {
     public bool enemy = false;
     public GameObject explosion;
     public bool start = false;
+    bool end = false;
+    bool win = false;
+    float time = 5f;
     // Use this for initialization
     void Start () {
         rigid = GetComponentInChildren<Rigidbody>();
@@ -28,16 +31,38 @@ public class MoveKnight : MonoBehaviour {
                 rigid.AddForce(Vector3.forward * 10f);
             }
         }
+        if (end)
+        {
+            time -= Time.deltaTime;
+            if(time < 0)
+            {
+                //End game
+                if (win)
+                {
+
+                } else
+                {
+
+                }
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.name == "Main Camera")
         {
-            print(collision.gameObject.name);
             rigid.constraints = RigidbodyConstraints.None;
             explosion.transform.position = collision.transform.position;
             Instantiate<GameObject>(explosion);
+            end = true;
+            win = true;
+        }
+        if (collision.gameObject.name == "End")
+        {
+            end = true;
+            win = false;
         }
     }
 }
