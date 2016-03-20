@@ -17,6 +17,8 @@ public class PlungerScript : MonoBehaviour {
 	public float charge;
 	public bool messageSent;
 	public Fungus.Flowchart gameOverFC;
+	public AudioSource asource;
+	public AudioClip aclip;
 
 	void Start () {
 		startpos = transform.position;
@@ -36,6 +38,7 @@ public class PlungerScript : MonoBehaviour {
 		Behaviour b = (Behaviour) this.gameObject.GetComponent("Halo");
 		b.enabled = false;
 		messageSent = false;
+		asource = this.gameObject.GetComponent<AudioSource> ();
 	}
 		
 	void Update () {
@@ -102,6 +105,8 @@ public class PlungerScript : MonoBehaviour {
 					b.enabled = false;
 					explosion.transform.position = transform.position;
 					Instantiate<GameObject> (explosion);
+				} else {
+					asource.PlayOneShot (aclip);
 				}
 				++state;
 			}
