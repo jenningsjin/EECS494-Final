@@ -15,6 +15,7 @@ public class PlungerScript : MonoBehaviour {
 	public bool gameOver;
 	public GameObject explosion;
 	public float charge;
+	public bool messageSent;
 
 	void Start () {
 		startpos = transform.position;
@@ -33,6 +34,7 @@ public class PlungerScript : MonoBehaviour {
 		charge = 0;
 		Behaviour b = (Behaviour) this.gameObject.GetComponent("Halo");
 		b.enabled = false;
+		messageSent = false;
 	}
 		
 	void Update () {
@@ -46,8 +48,10 @@ public class PlungerScript : MonoBehaviour {
 
 	void PauseForEffect() {
 		// TODO: integrate with fungus. This is just a placeholder.
-		if (timer < 0) {
-			SceneManager.LoadScene ("LevelSelectScene");
+		if (timer < 0 && !messageSent) {
+			//SceneManager.LoadScene ("LevelSelectScene");
+			Fungus.Flowchart.BroadcastFungusMessage("GameOver");
+			messageSent = true;
 		}
 		timer -= Time.deltaTime;
 	}
@@ -117,5 +121,14 @@ public class PlungerScript : MonoBehaviour {
 			Debug.Log ("Undefined state");
 			break;
 		}
+	}
+
+	// Called by Fungus. Small bug where plunger automatically goes down.
+	public void playAgain() {
+		gameOver = false;
+		score = 0;
+		timer = 31;
+		scoreGUI.text = "Score: " + timer.ToString ();
+		messageSent = false;
 	}
 }
