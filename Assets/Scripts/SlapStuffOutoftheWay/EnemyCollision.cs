@@ -3,13 +3,14 @@ using System.Collections;
 
 public class EnemyCollision : MonoBehaviour {
     public GameObject explosion;
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    Rigidbody rigid;
+    // Use this for initialization
+    void Start () {
+        rigid = GetComponentInChildren<Rigidbody>();
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 
@@ -20,6 +21,10 @@ public class EnemyCollision : MonoBehaviour {
             print(collision.gameObject.name);
             explosion.transform.position = collision.transform.position;
             Instantiate<GameObject>(explosion);
+        }
+        if(collision.gameObject.name != "Terrain")
+        {
+            rigid.constraints = RigidbodyConstraints.None;
         }
     }
 }
