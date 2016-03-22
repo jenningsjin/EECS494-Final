@@ -48,10 +48,12 @@ public class CharacterMotion : MonoBehaviour {
     }
 
     void EndGame() {
-        if (GameResults.S.dialogue_spot == 5) { // increment to 6 (after first slap game)
+        if (GameResults.S.result_slap1 == 0) { // increment to 6 (after first slap game)
+            GameResults.S.result_slap1 = 1;
             GameResults.S.dialogue_spot = 6;
         }
-        else if (GameResults.S.dialogue_spot == 6) {
+        else if (GameResults.S.result_slap2 == 0) {
+            GameResults.S.result_slap2 = 1;
             GameResults.S.dialogue_spot = 7;
         }
         else {

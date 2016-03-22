@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour {
     public int result_rps2 = 0;
     public int result_rps3 = 0;
 
+    public int result_slap1 = 0;
+    public int result_slap2 = 0;
+
     public int result_ddr1 = 0;
     public int result_ddr2 = 0;
 
@@ -105,7 +108,10 @@ public class GameManager : MonoBehaviour {
         result_rps2 = GameResults.S.result_rps2;
         result_rps3 = GameResults.S.result_rps3;
 
-        result_ddr1 = GameResults.S.result_ddr1;
+        result_slap1 = GameResults.S.result_slap1;
+        result_slap2 = GameResults.S.result_slap2;
+
+    result_ddr1 = GameResults.S.result_ddr1;
         result_ddr2 = GameResults.S.result_ddr2;
     }
 
