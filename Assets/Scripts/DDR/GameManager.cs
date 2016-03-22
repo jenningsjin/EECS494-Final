@@ -93,8 +93,9 @@ public class GameManager : MonoBehaviour {
             case 6:
                 flowchart_incorrect.ExecuteBlock("SlapWL_1");
                 break;
-            //case 7:
-             //   flowchart_incorrect.ExecuteBlock
+            case 7:
+                flowchart_incorrect.ExecuteBlock("SlapWL_2");
+                break;
         }
 
         //if ()

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Options : MonoBehaviour {
 	enum Moves {Paper, Rock, Scissors};
@@ -79,6 +80,7 @@ public class Options : MonoBehaviour {
         else {
             Debug.Log("Error in WinRPS()");
         }
+        SceneManager.LoadScene("DialogueScene_Plumber");
     }
 
     void LoseRPS() {
@@ -97,6 +99,7 @@ public class Options : MonoBehaviour {
         else {
             Debug.Log("Error in LoseRPS()");
         }
+        SceneManager.LoadScene("DialogueScene_Plumber");
     }
 
 
