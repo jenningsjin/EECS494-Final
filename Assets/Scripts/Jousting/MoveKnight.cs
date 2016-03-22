@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MoveKnight : MonoBehaviour {
     Rigidbody rigid;
@@ -39,11 +40,32 @@ public class MoveKnight : MonoBehaviour {
                 //End game
                 if (win)
                 {
-
+                    if (GameResults.S.result_joust1 == 0) 
+                    {
+                        //first playthrough
+                        GameResults.S.result_joust1 = 1;
+                        GameResults.S.dialogue_spot = 1;
+                    }
+                    else 
+                    {
+                        GameResults.S.result_joust2 = 1;
+                        GameResults.S.dialogue_spot = 2;
+                    }
                 } else
                 {
+                    //lost
+                    if (GameResults.S.result_joust1 == 0) {
+                        //first playthrough
+                        GameResults.S.result_joust1 = -1;
+                        GameResults.S.dialogue_spot = 1;
+                    }
+                    else {
+                        GameResults.S.result_joust2 = -1;
+                        GameResults.S.dialogue_spot = 2;
+                    }
 
                 }
+                SceneManager.LoadScene("DialogueScene_Plumber");
             }
         }
     }

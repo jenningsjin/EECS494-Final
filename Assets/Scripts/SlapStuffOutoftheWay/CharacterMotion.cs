@@ -23,6 +23,7 @@ public class CharacterMotion : MonoBehaviour {
             {
                 timer = 0;
                 //Lost game
+                EndGame();
             }
             if(this.rigid.velocity.z < 16f)
             {
@@ -41,6 +42,19 @@ public class CharacterMotion : MonoBehaviour {
         if(collision.gameObject.name == "End")
         {
             //Won Game
+            EndGame();
+        }
+    }
+
+    void EndGame() {
+        if (GameResults.S.dialogue_spot == 5) { // increment to 6 (after first slap game)
+            GameResults.S.dialogue_spot = 6;
+        }
+        else if (GameResults.S.dialogue_spot == 6) {
+            GameResults.S.dialogue_spot = 7;
+        }
+        else {
+            Debug.Log("Problem with Slapping game EndGame()");
         }
     }
 

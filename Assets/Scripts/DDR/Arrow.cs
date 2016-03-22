@@ -15,10 +15,10 @@ public class Arrow : MonoBehaviour {
     }
 
     void WinGame() {
-        GameResults.S.gamePlayed = true;
-        GameResults.S.gameResult = 1;
-        Debug.Log("var1 " + GameResults.S.gamePlayed);
-        Debug.Log("var2 " + GameResults.S.gameResult);
-        SceneManager.LoadScene("DialogueSceneTemp");
+        //GameResults.S.gamePlayed = true;
+        //GameResults.S.gameResult = 1;
+        //Debug.Log("var1 " + GameResults.S.gamePlayed);
+        //Debug.Log("var2 " + GameResults.S.gameResult);
+        SceneManager.LoadScene("DialogueScene_Plumber");
     }
 }

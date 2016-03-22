@@ -23,6 +23,11 @@ public class GameResults : MonoBehaviour {
 
     // Use this for initialization
     static GameObject gameInfo = null;
-    public bool gamePlayed = false;
-    public int gameResult = 0;
+    public int result_joust1 = 0;
+    public int result_joust2 = 0;
+    public int dialogue_spot = 0;
+
+    public int result_rps1 = 0;
+    public int result_rps2 = 0;
+    public int result_rps3 = 0;
 }
