@@ -30,4 +30,7 @@ public class GameResults : MonoBehaviour {
     public int result_rps1 = 0;
     public int result_rps2 = 0;
     public int result_rps3 = 0;
+
+    public int result_ddr1 = 0;
+    public int result_ddr2 = 0;
 }

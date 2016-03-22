@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 
     public Flowchart flowchart_start;
     public Flowchart flowchart_incorrect;
+    public Flowchart flowchart_sad;
 
     public int result_joust1 = 0;
     public int result_joust2 = 0;
@@ -38,9 +39,78 @@ public class GameManager : MonoBehaviour {
     public int result_rps2 = 0;
     public int result_rps3 = 0;
 
+    public int result_ddr1 = 0;
+    public int result_ddr2 = 0;
+
     void Start() {
         GetResults();
-        switch(dialogue_spot) {
+        //flowchart_start.ExecuteBlock("Joust_Lose1");
+        LocateDialogue();
+
+
+        //if ()
+        //flowchart_start.ExecuteBlock("Start");
+        //Debug.Log("Start");
+        //gamePlayed = GameResults.S.gamePlayed;
+        //gameResult = GameResults.S.gameResult;
+        //flowchart.SetBooleanVariable("gamePlayed", gamePlayed);
+        //flowchart.SetIntegerVariable("gameResult", gameResult);
+        //flowchart.enabled = true;
+        //if (gamePlayed) {
+        //    if (gameResult > 0) {
+        //        //switch to flowchart
+        //    }
+        //}
+    }
+
+    void Update() {
+        //gamePlayed = GameResults.S.gamePlayed;
+        //gameResult = GameResults.S.gameResult;
+        //flowchart.SetBooleanVariable("gamePlayed", gamePlayed);
+        //flowchart.SetIntegerVariable("gameResult", gameResult);
+        //if (gamePlayed) {
+        //    if (gameResult > 0) {
+        //        //switch to flowchart
+        //    }
+        //}
+    }
+
+    void StartJoust() {
+        SceneManager.LoadScene("Joust");
+    }
+
+    void StartRPS() {
+        SceneManager.LoadScene("RPS");
+    }
+
+    void StartSlap() {
+        SceneManager.LoadScene("SlapStuffOutoftheWay");
+    }
+
+    void StartDDR() {
+        SceneManager.LoadScene("DDR");
+    }
+
+    void StartUnclog() {
+        SceneManager.LoadScene("UnclogToilet");
+    }
+
+    void GetResults() {
+        dialogue_spot = GameResults.S.dialogue_spot;
+
+        result_joust1 = GameResults.S.result_joust1;
+        result_joust2 = GameResults.S.result_joust2;
+
+        result_rps1 = GameResults.S.result_rps1;
+        result_rps2 = GameResults.S.result_rps2;
+        result_rps3 = GameResults.S.result_rps3;
+
+        result_ddr1 = GameResults.S.result_ddr1;
+        result_ddr2 = GameResults.S.result_ddr2;
+    }
+
+    void LocateDialogue() {
+        switch (dialogue_spot) {
             case 0: // start game from beginning
                 Debug.Log("Case 0");
                 flowchart_start.ExecuteBlock("Start");
@@ -96,56 +166,18 @@ public class GameManager : MonoBehaviour {
             case 7:
                 flowchart_incorrect.ExecuteBlock("SlapWL_2");
                 break;
+            case 8:
+                if (result_ddr1 == 1) {
+                    flowchart_sad.ExecuteBlock("DDR_Win1");
+                }
+                else if (result_ddr1 == -1) {
+                    flowchart_sad.ExecuteBlock("DDR_Lose1");
+                }
+                break;
+            case 9:
+                flowchart_sad.ExecuteBlock("DDR_WL2");
+                break;
         }
-
-        //if ()
-        //flowchart_start.ExecuteBlock("Start");
-        //Debug.Log("Start");
-        //gamePlayed = GameResults.S.gamePlayed;
-        //gameResult = GameResults.S.gameResult;
-        //flowchart.SetBooleanVariable("gamePlayed", gamePlayed);
-        //flowchart.SetIntegerVariable("gameResult", gameResult);
-        //flowchart.enabled = true;
-        //if (gamePlayed) {
-        //    if (gameResult > 0) {
-        //        //switch to flowchart
-        //    }
-        //}
-    }
-
-    void Update() {
-        //gamePlayed = GameResults.S.gamePlayed;
-        //gameResult = GameResults.S.gameResult;
-        //flowchart.SetBooleanVariable("gamePlayed", gamePlayed);
-        //flowchart.SetIntegerVariable("gameResult", gameResult);
-        //if (gamePlayed) {
-        //    if (gameResult > 0) {
-        //        //switch to flowchart
-        //    }
-        //}
-    }
-
-    void StartJoust() {
-        SceneManager.LoadScene("Joust");
-    }
-
-    void StartRPS() {
-        SceneManager.LoadScene("RPS");
-    }
-
-    void StartSlap() {
-        SceneManager.LoadScene("SlapStuffOutoftheWay");
-    }
-
-    void GetResults() {
-        dialogue_spot = GameResults.S.dialogue_spot;
-
-        result_joust1 = GameResults.S.result_joust1;
-        result_joust2 = GameResults.S.result_joust2;
-
-        result_rps1 = GameResults.S.result_rps1;
-        result_rps2 = GameResults.S.result_rps2;
-        result_rps3 = GameResults.S.result_rps3;
     }
 
 

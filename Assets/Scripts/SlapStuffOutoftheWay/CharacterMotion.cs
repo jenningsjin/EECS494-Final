@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CharacterMotion : MonoBehaviour {
     Rigidbody rigid;
@@ -56,6 +57,7 @@ public class CharacterMotion : MonoBehaviour {
         else {
             Debug.Log("Problem with Slapping game EndGame()");
         }
+        SceneManager.LoadScene("DialogueScene_Plumber");
     }
 
 }
